@@ -1,5 +1,5 @@
 const express = require("express");
-const mysql = require("mysql2/promise");
+const mysql = require("mysql2");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const startServer = async () => {
@@ -7,12 +7,14 @@ const startServer = async () => {
   app.use(cors());
   app.use(bodyParser.json());
 
-  const con = await mysql.createConnection({
-    host: "sql12.freesqldatabase.com",
-    user: "sql12673801",
-    password: "xGIUYPIwKC",
-    database: "sql12673801",
-  });
+  const con = await mysql
+    .createConnection({
+      host: "sql12.freesqldatabase.com",
+      user: "sql12673801",
+      password: "xGIUYPIwKC",
+      database: "sql12673801",
+    })
+    .promise();
 
   app.use(express.json());
 
