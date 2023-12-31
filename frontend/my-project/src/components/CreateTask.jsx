@@ -49,8 +49,7 @@ const CreateTask = ({ closeModal, taskStatus }) => {
           task
         );
         const [result, _] = res.data;
-        console.log(result);
-        window.location.reload();
+        closeModal(false);
       } catch (error) {
         console.log(error);
       }

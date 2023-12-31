@@ -3,10 +3,12 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import TaskSection from "./TaskSection";
 import TaskSectionWrapper from "./TaskSectionWrapper";
+import { data } from "autoprefixer";
 
 const Tasks = () => {
   const { id } = useParams();
   const [title, setTitle] = useState("");
+
   const getTitle = async () => {
     const res = await axios.get(`https://todo-6aqd.onrender.com/title/${id}`);
     const [data] = res.data;
@@ -16,7 +18,7 @@ const Tasks = () => {
 
   useEffect(() => {
     getTitle();
-  });
+  }, []);
 
   return (
     <div>

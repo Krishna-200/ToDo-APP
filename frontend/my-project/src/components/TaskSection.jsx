@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
@@ -7,7 +7,7 @@ import ReactModal from "react-modal";
 import { Link } from "react-router-dom";
 import EditTask from "./EditTask";
 
-function TaskSection(props) {
+function TaskSection({ stat, handleEdit }) {
   const { id } = useParams();
   const [tasks, setTasks] = useState([]);
   const [title, setTitle] = useState("");
@@ -17,20 +17,24 @@ function TaskSection(props) {
   const [openModal, setOpenModal] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
-
+  const [re, setRe] = useReducer((x) => x + 1, 0);
+  function refun(val) {
+    setRe(val);
+  }
   const getTasks = async () => {
     const res = await axios.get(`https://todo-6aqd.onrender.com/${id}`);
     setTasks(res.data);
   };
 
+  const data = tasks.filter((task) => {
+    return task.status === stat;
+  });
+
   useEffect(() => {
     getTasks();
-  }, [id]);
+  }, [openModal, openEdit, handleEdit]);
 
-  const data = tasks.filter((task) => {
-    return task.status === props.status;
-  });
-  const handleEdit = (task) => {
+  const handle = (task) => {
     setSelectedTask(task);
     setOpenEdit(true);
   };
@@ -40,13 +44,13 @@ function TaskSection(props) {
     <div>
       <div className="bg-white border-r-neutral-50 border-2 h-screen ">
         <h1
-          className={`ml-4 mt-2 font-semibold w-fit p-2 pt-1 pb-1 rounded-lg bg-${props.status}-primary text-${props.status}-textPrimary`}
+          className={`ml-4 mt-2 font-semibold w-fit p-2 pt-1 pb-1 rounded-lg bg-${stat}-primary text-${stat}-textPrimary`}
         >
-          {props.status}
+          {stat}
         </h1>
         <div>
           {data.map((ele) => (
-            <div onClick={() => handleEdit(ele)}>
+            <div onClick={() => handle(ele)}>
               <div className="p-2 shadow-lg  m-5 rounded-lg ">
                 <div className="text-medium font-semibold m-3 mb-1">
                   {ele.task}
@@ -59,12 +63,12 @@ function TaskSection(props) {
                 </div>
                 <div className="ml-3 mt-2 mb-3">
                   <span
-                    className={`p-3 pt-1 pb-1 mr-6 bg-${props.status}-primary text-${props.status}-textPrimary rounded-lg text-sm`}
+                    className={`p-3 pt-1 pb-1 mr-6 bg-${stat}-primary text-${stat}-textPrimary rounded-lg text-sm`}
                   >
                     {moment(ele.start_date).format("DD/MM/YYYY")}
                   </span>
                   <span
-                    className={`p-3 pt-1 pb-1 bg-${props.status}-primary text-${props.status}-textPrimary rounded-lg text-sm`}
+                    className={`p-3 pt-1 pb-1 bg-${stat}-primary text-${stat}-textPrimary rounded-lg text-sm`}
                   >
                     {moment(ele.deadlink).format("DD/MM/YYYY")}
                   </span>
@@ -76,21 +80,19 @@ function TaskSection(props) {
             onClick={() => {
               setOpenModal(true);
             }}
-            className={`ml-4 mt-4 w-11/12 bg-${props.status}-primary font-semibold rounded-lg text-${props.status}-textPrimary py-1 outline-none`}
+            className={`ml-4 mt-4 w-11/12 bg-${stat}-primary font-semibold rounded-lg text-${stat}-textPrimary py-1 outline-none`}
           >
             + Add New Task
           </button>
         </div>
         <ReactModal isOpen={openModal} className="h-screen">
           {openModal && (
-            <CreateTask closeModal={setOpenModal} taskStatus={props.status} />
+            <CreateTask closeModal={setOpenModal} taskStatus={stat} />
           )}
         </ReactModal>
       </div>
       <ReactModal isOpen={openEdit} className="h-screen">
-        {openEdit && (
-          <EditTask closeEdit={() => setOpenEdit(false)} task={selectedTask} />
-        )}
+        {openEdit && <EditTask closeEdit={setOpenEdit} task={selectedTask} />}
       </ReactModal>
     </div>
   );

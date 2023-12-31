@@ -22,7 +22,7 @@ const MainMenu = () => {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [openModal]);
 
   return (
     <div className=" border-2 border-inherit h-screen ">

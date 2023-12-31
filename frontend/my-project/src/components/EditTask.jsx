@@ -41,18 +41,16 @@ const EditTask = ({ task, closeEdit }) => {
           status,
         }
       );
+      closeEdit(false);
       console.log(res);
       setTitle(res.data.task);
       setStatus(res.data.status);
       setStartDate(res.data.start_date);
       setEndDate(res.data.end_date);
       // console.log(title, status, startDate, endDate);
-      window.location.reload();
     } catch (error) {
       console.log(error);
     }
-
-    closeEdit(false);
   };
 
   return (

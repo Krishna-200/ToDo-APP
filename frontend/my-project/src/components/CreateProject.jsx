@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const CreateProject = ({ closeModal }) => {
   const [data, setData] = useState([]);
   const [title, setTitle] = useState("");
   const [formErrors, setFormErrors] = useState({});
 
+  const navigate = useNavigate();
   const getData = async () => {
     const response = await axios.get(
       "https://todo-6aqd.onrender.com/allProjects"
@@ -39,9 +41,8 @@ const CreateProject = ({ closeModal }) => {
           project
         );
         const [result, _] = res.data;
-        console.log(result);
-        getData();
-        window.location.reload();
+        //getData();
+        closeModal(false);
       } catch (error) {
         console.log(error);
       }
@@ -50,7 +51,7 @@ const CreateProject = ({ closeModal }) => {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [closeModal]);
 
   return (
     <div className="w-1/2 drop-shadow-2xl rounded-2xl outline-none p-4 bg-white m-auto mt-64">

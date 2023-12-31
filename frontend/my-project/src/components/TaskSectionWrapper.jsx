@@ -18,7 +18,7 @@ function TaskSectionWrapper(props) {
 
   return (
     <div>
-      <TaskSection status={props.status} onEdit={handleEdit} />
+      <TaskSection stat={props.status} onEdit={handleEdit} />
 
       <ReactModal isOpen={openEdit} className="h-screen">
         {openEdit && (
