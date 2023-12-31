@@ -32,12 +32,15 @@ const EditTask = ({ task, closeEdit }) => {
     }
 
     try {
-      const res = await axios.put(`http://localhost:3000/${task_id}/update`, {
-        task: title,
-        start_date: startDate,
-        deadlink: endDate,
-        status,
-      });
+      const res = await axios.put(
+        `https://todo-6aqd.onrender.com/${task_id}/update`,
+        {
+          task: title,
+          start_date: startDate,
+          deadlink: endDate,
+          status,
+        }
+      );
       console.log(res);
       setTitle(res.data.task);
       setStatus(res.data.status);

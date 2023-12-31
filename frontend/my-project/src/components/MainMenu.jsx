@@ -2,6 +2,7 @@ import React from "react";
 import ProjectCard from "./ProjectCard";
 import { useEffect, useState } from "react";
 import ReactModal from "react-modal";
+import URL from "../../url.js";
 
 import axios from "axios";
 import CreateProject from "./CreateProject";
@@ -12,7 +13,9 @@ const MainMenu = () => {
   const [openModal, setOpenModal] = useState(false);
 
   const getData = async () => {
-    const response = await axios.get("http://localhost:3000/allProjects");
+    const response = await axios.get(
+      "https://todo-6aqd.onrender.com/allProjects"
+    );
     setData(response.data);
     // console.log(response.data);
   };

@@ -19,7 +19,7 @@ function TaskSection(props) {
   const [selectedTask, setSelectedTask] = useState(null);
 
   const getTasks = async () => {
-    const res = await axios.get(`http://localhost:3000/${id}`);
+    const res = await axios.get(`https://todo-6aqd.onrender.com/${id}`);
     setTasks(res.data);
   };
 

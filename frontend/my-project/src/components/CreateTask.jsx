@@ -45,7 +45,7 @@ const CreateTask = ({ closeModal, taskStatus }) => {
 
       try {
         const res = await axios.post(
-          `http://localhost:3000/${id}/createtask`,
+          `https://todo-6aqd.onrender.com/${id}/createtask`,
           task
         );
         const [result, _] = res.data;

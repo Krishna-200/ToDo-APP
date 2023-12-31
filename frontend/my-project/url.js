@@ -1,2 +1,2 @@
-export const URl = "http://localhost:3000";
+export const URl = "https://todo-6aqd.onrender.com";
 export default URL;

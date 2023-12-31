@@ -7,7 +7,7 @@ const ProjectCard = ({ id, title }) => {
   const navigate = useNavigate();
   const handleDelete = async () => {
     try {
-      const res = await axios.delete(`http://localhost:3000/${id}`);
+      const res = await axios.delete(`https://todo-6aqd.onrender.com/${id}`);
       navigate("/");
       window.location.reload();
     } catch (error) {

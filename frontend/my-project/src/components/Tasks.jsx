@@ -8,7 +8,7 @@ const Tasks = () => {
   const { id } = useParams();
   const [title, setTitle] = useState("");
   const getTitle = async () => {
-    const res = await axios.get(`http://localhost:3000/title/${id}`);
+    const res = await axios.get(`https://todo-6aqd.onrender.com/title/${id}`);
     const [data] = res.data;
     // console.log(data.title);
     setTitle(data.title);

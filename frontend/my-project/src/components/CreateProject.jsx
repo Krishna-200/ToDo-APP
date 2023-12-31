@@ -7,7 +7,9 @@ const CreateProject = ({ closeModal }) => {
   const [formErrors, setFormErrors] = useState({});
 
   const getData = async () => {
-    const response = await axios.get("http://localhost:3000/allProjects");
+    const response = await axios.get(
+      "https://todo-6aqd.onrender.com/allProjects"
+    );
     setData(response.data);
   };
 
@@ -33,7 +35,7 @@ const CreateProject = ({ closeModal }) => {
       try {
         console.log(project);
         const res = await axios.post(
-          "http://localhost:3000/createProject",
+          "https://todo-6aqd.onrender.com/createProject",
           project
         );
         const [result, _] = res.data;
