@@ -9,10 +9,10 @@ const startServer = async () => {
 
   const con = await mysql
     .createConnection({
-      host: "sql12.freesqldatabase.com",
-      user: "sql12673801",
-      password: "xGIUYPIwKC",
-      database: "sql12673801",
+      host: "database-1.c9y8uig2qfmx.us-east-1.rds.amazonaws.com",
+      user: "admin",
+      password: "Haripajjuri1234",
+      database: "application",
     })
     .promise();
 
